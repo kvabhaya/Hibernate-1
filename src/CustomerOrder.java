@@ -1,5 +1,6 @@
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "customer_order")
 public class CustomerOrder {
@@ -13,4 +14,7 @@ public class CustomerOrder {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    @ManyToMany
+    private List<Product> product;
 }

@@ -17,6 +17,7 @@ public class HibernateUtil {
                 .addAnnotatedClass(Customer.class)
                 .addAnnotatedClass(Computer.class)
                 .addAnnotatedClass(CustomerOrder.class)
+                .addAnnotatedClass(Product.class)
                 .getMetadataBuilder()
                 .build();
 
