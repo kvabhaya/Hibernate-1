@@ -6,6 +6,7 @@ import java.util.List;
 
 public class AppInitializer {
     public static void main(String[] args) {
+        HibernateUtil.getSession();
         //====================================save
         /*Customer c1 = new Customer(
                 "C-001",

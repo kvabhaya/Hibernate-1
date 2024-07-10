@@ -1,5 +1,6 @@
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,14 +13,18 @@ public class Customer {
     private String address;
     private double salary;
 
+    @OneToOne(mappedBy = "customer")
+    private Computer computer;
+
     public Customer() {
     }
 
-    public Customer(String id, String name, String address, double salary) {
+    public Customer(String id, String name, String address, double salary, Computer computer) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.salary = salary;
+        this.computer = computer;
     }
 
     public String getId() {
@@ -54,6 +59,14 @@ public class Customer {
         this.salary = salary;
     }
 
+    public Computer getComputer() {
+        return computer;
+    }
+
+    public void setComputer(Computer computer) {
+        this.computer = computer;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -61,6 +74,7 @@ public class Customer {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", salary=" + salary +
+                ", computer=" + computer +
                 '}';
     }
 }
