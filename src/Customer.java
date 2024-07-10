@@ -1,7 +1,5 @@
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="customer")
@@ -16,15 +14,19 @@ public class Customer {
     @OneToOne(mappedBy = "customer")
     private Computer computer;
 
+    @OneToMany(mappedBy = "customer")
+    private List<CustomerOrder> orders;
+
     public Customer() {
     }
 
-    public Customer(String id, String name, String address, double salary, Computer computer) {
+    public Customer(String id, String name, String address, double salary, Computer computer, List<CustomerOrder> orders) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.salary = salary;
         this.computer = computer;
+        this.orders = orders;
     }
 
     public String getId() {
@@ -67,6 +69,14 @@ public class Customer {
         this.computer = computer;
     }
 
+    public List<CustomerOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<CustomerOrder> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -75,6 +85,7 @@ public class Customer {
                 ", address='" + address + '\'' +
                 ", salary=" + salary +
                 ", computer=" + computer +
+                ", orders=" + orders +
                 '}';
     }
 }
