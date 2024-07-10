@@ -21,7 +21,17 @@ public class AppInitializer {
         System.out.println(customer);*/
 
         //====================================findAll
-        findAllCustomers().stream().forEach(e-> System.out.println(e));
+        /*findAllCustomers().stream().forEach(e-> System.out.println(e));*/
+
+        //====================================update
+        Customer c1 = new Customer(
+                "C-001",
+                "Jagath",
+                "Colombo",
+                45000);
+        if(updateCustomer(c1, "C-001")){
+            System.out.println("Updated..");
+        }
 
     }
     private static boolean saveCustomer(Customer c){
@@ -43,6 +53,22 @@ public class AppInitializer {
         try(Session session = HibernateUtil.getSession()){
             Query query = session.createQuery("FROM Customer",Customer.class);
             return query.list();
+        }
+    }
+
+    private static boolean updateCustomer(Customer c, String id){
+        try(Session session = HibernateUtil.getSession()){
+            Customer customer = session.find(Customer.class, id);
+            if(customer!=null){
+                customer.setName(c.getName());
+                customer.setAddress(c.getAddress());
+                customer.setSalary(c.getSalary());
+                Transaction transaction = session.beginTransaction();
+                session.saveOrUpdate(customer);
+                transaction.commit();
+                return true;
+            }
+            return false;
         }
     }
 }
