@@ -24,14 +24,18 @@ public class AppInitializer {
         /*findAllCustomers().stream().forEach(e-> System.out.println(e));*/
 
         //====================================update
-        Customer c1 = new Customer(
+        /*Customer c1 = new Customer(
                 "C-001",
                 "Jagath",
                 "Colombo",
                 45000);
         if(updateCustomer(c1, "C-001")){
             System.out.println("Updated..");
-        }
+        }*/
+
+        //====================================delete
+        deleteCustomer("C-001");
+
 
     }
     private static boolean saveCustomer(Customer c){
@@ -70,5 +74,15 @@ public class AppInitializer {
             }
             return false;
         }
+    }
+
+    private static boolean deleteCustomer(String id){
+        try(Session session = HibernateUtil.getSession()){
+            Transaction transaction = session.beginTransaction();
+            Customer customer = session.find(Customer.class,id);
+            session.delete(customer);
+            transaction.commit();
+        }
+        return true;
     }
 }
